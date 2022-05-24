@@ -22,6 +22,7 @@ import javax.validation.constraints.NotBlank;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
+@JsonIgnoreProperties(value = "hibernateLazyInitializer")
 public class Student implements Constants {
     @Id
     @SequenceGenerator(

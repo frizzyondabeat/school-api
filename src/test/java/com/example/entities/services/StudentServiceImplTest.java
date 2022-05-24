@@ -3,11 +3,9 @@ package com.example.entities.services;
 import com.example.entities.constants.Constants;
 import com.example.entities.containers.MySqlTestContainer;
 import com.example.entities.dto.StudentDto;
-import com.example.entities.exceptions.StudentBadRequestException;
-import com.example.entities.exceptions.StudentNotFoundException;
 import com.example.entities.models.Guardian;
-import com.example.entities.models.Student;
 import com.example.entities.repositories.StudentRepository;
+import com.example.entities.services.implementation.StudentServiceImpl;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Nested;
@@ -23,10 +21,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.test.context.ContextConfiguration;
 
-import java.util.ArrayList;
-
 import static com.example.entities.constants.TestConstants.ACTUAL_EMAIL;
-import static com.example.entities.constants.TestConstants.TEST_EMAIL;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;

@@ -7,12 +7,12 @@ import org.springframework.web.bind.annotation.*;
 import java.time.ZonedDateTime;
 
 @ControllerAdvice
-public class StudentExceptionHandler {
+public class ApiExceptionHandler {
 
-    @ExceptionHandler(value = {StudentNotFoundException.class})
-    public ResponseEntity<Object> handleStudentRequestException(StudentNotFoundException exception){
+    @ExceptionHandler(value = {ApiNotFoundException.class})
+    public ResponseEntity<Object> handleStudentRequestException(ApiNotFoundException exception){
         return new ResponseEntity<>(
-                StudentExceptionDetails.builder()
+                ApiExceptionDetails.builder()
                         .message(exception.getMessage())
                         .httpStatus(HttpStatus.NOT_FOUND)
                         .time(ZonedDateTime.now())
@@ -21,10 +21,10 @@ public class StudentExceptionHandler {
         );
     }
 
-    @ExceptionHandler(value = {StudentBadRequestException.class})
-    public ResponseEntity<Object> handleStudentRequestException(StudentBadRequestException exception){
+    @ExceptionHandler(value = {ApiBadRequestException.class})
+    public ResponseEntity<Object> handleStudentRequestException(ApiBadRequestException exception){
         return new ResponseEntity<>(
-                StudentExceptionDetails.builder()
+                ApiExceptionDetails.builder()
                         .message(exception.getMessage())
                         .httpStatus(HttpStatus.BAD_REQUEST)
                         .time(ZonedDateTime.now())

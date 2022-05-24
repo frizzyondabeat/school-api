@@ -14,7 +14,7 @@ import javax.validation.Valid;
 
 
 @RestController
-@RequestMapping("api/v1/student")
+@RequestMapping("api/v1/student/")
 @Slf4j
 @RequiredArgsConstructor
 public class StudentController {
@@ -47,7 +47,7 @@ public class StudentController {
         }
     }
 
-    @PostMapping("/create")
+    @PostMapping
     public ResponseEntity<Object> createStudent(
             @Valid @RequestBody StudentDto studentDto
     ){

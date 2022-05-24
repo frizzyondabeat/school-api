@@ -1,6 +1,5 @@
 package com.example.entities.dto;
 
-import com.example.entities.models.Guardian;
 import lombok.*;
 
 import javax.validation.constraints.NotBlank;
@@ -17,6 +16,5 @@ public class StudentDto {
     private String lastName;
     @NotBlank
     private String email;
-    @NotBlank
-    private Guardian guardian;
+    private GuardianDto guardian;
 }

@@ -1,12 +1,13 @@
-package com.example.entities.services;
+package com.example.entities.services.implementation;
 
 import com.example.entities.dto.StudentDto;
-import com.example.entities.exceptions.StudentBadRequestException;
-import com.example.entities.exceptions.StudentNotFoundException;
+import com.example.entities.exceptions.ApiBadRequestException;
+import com.example.entities.exceptions.ApiNotFoundException;
 import com.example.entities.models.Guardian;
 import com.example.entities.models.Student;
 import com.example.entities.repositories.GuardianRepository;
 import com.example.entities.repositories.StudentRepository;
+import com.example.entities.services.StudentService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
@@ -31,7 +32,7 @@ public class StudentServiceImpl implements StudentService {
 
     @Override
     public String getNameByEmailAddress(String email) {
-        return studentRepository.getStudentFirstNameAndLastNameByEmailAddress(email).orElseThrow(() -> new StudentNotFoundException("Student Not Found")).replace(",", " ");
+        return studentRepository.getStudentFirstNameAndLastNameByEmailAddress(email).orElseThrow(() -> new ApiNotFoundException("Student Not Found")).replace(",", " ");
     }
 
     @Override
@@ -39,7 +40,7 @@ public class StudentServiceImpl implements StudentService {
     public Student createStudent(StudentDto studentDto) {
         if (studentRepository.existsByEmailAddress(studentDto.getEmail())){
             log.error("Student already exists");
-            throw new StudentBadRequestException("Student already exists");
+            throw new ApiBadRequestException("Student already exists");
         }
         return studentRepository.save(Student.builder()
                 .firstName(studentDto.getFirstName())
@@ -59,14 +60,14 @@ public class StudentServiceImpl implements StudentService {
     public Student updateStudentByEmail(String emailAddress, StudentDto studentDto) {
         if (!studentRepository.existsByEmailAddress(emailAddress)){
             log.error("Student does not exist");
-            throw new StudentNotFoundException("No such student with email " + emailAddress + " exists");
+            throw new ApiNotFoundException("No such student with email " + emailAddress + " exists");
         }
         studentRepository.updateFirstNameAndLastNameAndEmailAddressByEmailAddress(
                 studentDto.getFirstName(),
                 studentDto.getLastName(),
                 studentDto.getEmail(),
                 emailAddress);
-        return studentRepository.getByEmailAddress(studentDto.getEmail());
+        return studentRepository.findByEmailAddress(studentDto.getEmail());
     }
 
     @Override
@@ -74,7 +75,7 @@ public class StudentServiceImpl implements StudentService {
     public void deleteStudentByEmail(String emailAddress) {
         if (!studentRepository.existsByEmailAddress(emailAddress)){
             log.error("Student does not exist");
-            throw new StudentNotFoundException("No such student with email " + emailAddress + " exists");
+            throw new ApiNotFoundException("No such student with email " + emailAddress + " exists");
         }
         studentRepository.deleteByEmailAddress(emailAddress);
         log.info("Student deleted successfully");

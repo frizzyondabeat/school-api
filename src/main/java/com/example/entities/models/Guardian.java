@@ -1,8 +1,8 @@
 package com.example.entities.models;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.*;
-import org.hibernate.annotations.TypeDef;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
@@ -31,6 +31,7 @@ import java.util.List;
                 )
         }
 )
+@JsonIgnoreProperties(value = "hibernateLazyInitializer")
 public class Guardian {
 
     @Id
